@@ -1,0 +1,18 @@
+{
+    "dataCount": 3,
+    "rate": 1.0,
+    "raws": [
+        {
+            "tag": "Assets/StreamingAssets/Levels\\result_22.xml",
+            "isStable": true
+        },
+        {
+            "tag": "Assets/StreamingAssets/Levels\\result_23.xml",
+            "isStable": true
+        },
+        {
+            "tag": "Assets/StreamingAssets/Levels\\result_24.xml",
+            "isStable": true
+        }
+    ]
+}

@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>
 //
 
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -173,7 +173,8 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
 				for (int j = 0; j < (int)screenRate; j++) {
 					
 					Vector3 deltaPos = Vector3.down * (LevelHeight/1.5f + (j * 2f));
-					Instantiate(ABWorldAssets.GROUND_EXTENSION, landscapePos + deltaPos, Quaternion.identity);
+					GameObject groundExt = Instantiate(ABWorldAssets.GROUND_EXTENSION, landscapePos + deltaPos, Quaternion.identity);
+                    SceneManager.MoveGameObjectToScene(groundExt, this.gameObject.scene);
 				}
 			}
 

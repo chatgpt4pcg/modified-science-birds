@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>
 //
 
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -44,6 +44,10 @@ public class ABObjectPool<T> where T : MonoBehaviour {
 
 			particlesParent = new GameObject();
 			particlesParent.name = "ObjectPool";
+            if (ABGameWorld.Instance != null)
+            {
+                UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(particlesParent, ABGameWorld.Instance.gameObject.scene);
+            }
 		}
 			
 		poolObj.transform.SetParent (particlesParent.transform);

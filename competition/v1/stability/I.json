@@ -1,0 +1,46 @@
+{
+    "dataCount": 10,
+    "rate": 1.0,
+    "raws": [
+        {
+            "tag": "competition\\v1\\levels\\I\\V1_I_1.xml",
+            "isStable": true
+        },
+        {
+            "tag": "competition\\v1\\levels\\I\\V1_I_10.xml",
+            "isStable": true
+        },
+        {
+            "tag": "competition\\v1\\levels\\I\\V1_I_2.xml",
+            "isStable": true
+        },
+        {
+            "tag": "competition\\v1\\levels\\I\\V1_I_3.xml",
+            "isStable": true
+        },
+        {
+            "tag": "competition\\v1\\levels\\I\\V1_I_4.xml",
+            "isStable": true
+        },
+        {
+            "tag": "competition\\v1\\levels\\I\\V1_I_5.xml",
+            "isStable": true
+        },
+        {
+            "tag": "competition\\v1\\levels\\I\\V1_I_6.xml",
+            "isStable": true
+        },
+        {
+            "tag": "competition\\v1\\levels\\I\\V1_I_7.xml",
+            "isStable": true
+        },
+        {
+            "tag": "competition\\v1\\levels\\I\\V1_I_8.xml",
+            "isStable": true
+        },
+        {
+            "tag": "competition\\v1\\levels\\I\\V1_I_9.xml",
+            "isStable": true
+        }
+    ]
+}

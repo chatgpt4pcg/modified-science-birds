@@ -1,6 +1,6 @@
 {
-    "dataCount": 3,
-    "rate": 1.0,
+    "dataCount": 5,
+    "rate": 0.800000011920929,
     "raws": [
         {
             "tag": "Assets/StreamingAssets/Levels\\result_22.xml",
@@ -12,6 +12,14 @@
         },
         {
             "tag": "Assets/StreamingAssets/Levels\\result_24.xml",
+            "isStable": true
+        },
+        {
+            "tag": "Assets/StreamingAssets/Levels\\V1_L_1.xml",
+            "isStable": false
+        },
+        {
+            "tag": "Assets/StreamingAssets/Levels\\V1_L_5.xml",
             "isStable": true
         }
     ]

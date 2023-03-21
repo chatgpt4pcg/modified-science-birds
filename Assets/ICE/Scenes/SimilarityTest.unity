@@ -152,8 +152,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ocrSettings: {fileID: 11400000, guid: 3f904d099fc34b949a568dc22e2e4cd2, type: 2}
   scene: {fileID: 102900000, guid: f787a4bddc886504189393873e553e9f, type: 3}
-  inputDirectory: {fileID: 102900000, guid: 7d81969fa6ccf4042a9d91bb20105290, type: 3}
-  outputDirectory: {fileID: 102900000, guid: 9f5db511170d34a4f87171ddbfc2edaf, type: 3}
   renderCamera: {fileID: 1073890558}
   targetSize: {x: 1024, y: 1024}
   timeScale: 5
@@ -161,6 +159,8 @@ MonoBehaviour:
   margin: 100
   targetMaterial: 0
   outputErrorLevels: 1
+  inputDirectory: {fileID: 102900000, guid: 7d81969fa6ccf4042a9d91bb20105290, type: 3}
+  outputDirectory: {fileID: 102900000, guid: 9f5db511170d34a4f87171ddbfc2edaf, type: 3}
 --- !u!4 &958228634
 Transform:
   m_ObjectHideFlags: 0

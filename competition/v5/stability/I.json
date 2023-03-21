@@ -4,43 +4,43 @@
     "raws": [
         {
             "tag": "competition\\v5\\levels\\I\\V5_I_1.xml",
-            "isStable": true
+            "score": 1.0
         },
         {
             "tag": "competition\\v5\\levels\\I\\V5_I_10.xml",
-            "isStable": true
+            "score": 1.0
         },
         {
             "tag": "competition\\v5\\levels\\I\\V5_I_2.xml",
-            "isStable": true
+            "score": 1.0
         },
         {
             "tag": "competition\\v5\\levels\\I\\V5_I_3.xml",
-            "isStable": true
+            "score": 1.0
         },
         {
             "tag": "competition\\v5\\levels\\I\\V5_I_4.xml",
-            "isStable": true
+            "score": 1.0
         },
         {
             "tag": "competition\\v5\\levels\\I\\V5_I_5.xml",
-            "isStable": true
+            "score": 1.0
         },
         {
             "tag": "competition\\v5\\levels\\I\\V5_I_6.xml",
-            "isStable": true
+            "score": 1.0
         },
         {
             "tag": "competition\\v5\\levels\\I\\V5_I_7.xml",
-            "isStable": true
+            "score": 1.0
         },
         {
             "tag": "competition\\v5\\levels\\I\\V5_I_8.xml",
-            "isStable": true
+            "score": 1.0
         },
         {
             "tag": "competition\\v5\\levels\\I\\V5_I_9.xml",
-            "isStable": true
+            "score": 1.0
         }
     ]
 }

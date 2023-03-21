@@ -1,26 +1,26 @@
 {
     "dataCount": 5,
-    "rate": 0.800000011920929,
+    "rate": 0.9333333969116211,
     "raws": [
         {
             "tag": "Assets/StreamingAssets/Levels\\result_22.xml",
-            "isStable": true
+            "score": 1.0
         },
         {
             "tag": "Assets/StreamingAssets/Levels\\result_23.xml",
-            "isStable": true
+            "score": 1.0
         },
         {
             "tag": "Assets/StreamingAssets/Levels\\result_24.xml",
-            "isStable": true
+            "score": 1.0
         },
         {
             "tag": "Assets/StreamingAssets/Levels\\V1_L_1.xml",
-            "isStable": false
+            "score": 0.6666666865348816
         },
         {
             "tag": "Assets/StreamingAssets/Levels\\V1_L_5.xml",
-            "isStable": true
+            "score": 1.0
         }
     ]
 }

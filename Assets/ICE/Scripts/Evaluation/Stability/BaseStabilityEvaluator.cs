@@ -16,9 +16,9 @@ namespace ICE.Evaluation
         public float duration;
         public float timeScale;
         public float movementThreshold = 3;
-        public int retry;
+        public int trials;
 
-        private bool m_isStable = false;
+        private float m_score = 0;
 
         protected virtual void Awake()
         {
@@ -47,50 +47,32 @@ namespace ICE.Evaluation
             LevelList.Instance.LoadLevelsFromSource(xlevels);
 
             StabilityData data = new StabilityData();
-
-            List<int> unstables = new List<int>();
+            trials = Mathf.Max(1, trials);
             for (int i = 0; i < xlevels.Length; i++)
             {
-                Debug.LogFormat("--checking: {0}", inputFiles[i]);
-                yield return StartCoroutine(IE_StableCheck(i));
-                data.raws.Add(new Stability() { tag = inputFiles[i], isStable = m_isStable });
-                if (!m_isStable)
-                    unstables.Add(i);
-            }
-
-            //re-check
-            int t = 0;
-            while (unstables.Count > 0 && t < retry)
-            {
-                //shuffle unstable id
-                for (int i = 0; i < unstables.Count - 1; i++)
+                float score = 0;
+                for (int n = 0; n < trials; n++)
                 {
-                    for (int j = i + 1; j < unstables.Count; j++)
+                    Debug.LogFormat("--({0})checking: {1}", n, inputFiles[i]);
+                    yield return StartCoroutine(IE_StableCheck(i));
+                    score = Mathf.Max(score, m_score);
+                    if (score >= 1.0f) //already a max score
                     {
-                        if (Random.Range(0, 10) < 5)
-                        {
-                            int temp = unstables[i];
-                            unstables[i] = unstables[j];
-                            unstables[j] = temp;
-                        }
+                        break;
                     }
                 }
-                //shuffle unstable id
-
-                for (int i = unstables.Count - 1; i >= 0; i--)
-                {
-                    Debug.LogFormat("---re-checking: {0}", inputFiles[i]);
-                    yield return StartCoroutine(IE_StableCheck(unstables[i]));
-                    data.raws[unstables[i]].isStable = m_isStable;
-                    if (m_isStable)
-                        unstables.RemoveAt(i);
-                }
-                t++;
+                data.raws.Add(new Stability() { tag = inputFiles[i], score = score });
             }
-            //re-check
 
             data.dataCount = data.raws.Count;
-            data.rate = (float)data.raws.FindAll(x => x.isStable).Count / (float)data.dataCount;
+
+            float rate = 0;
+            foreach (Stability d in data.raws)
+            {
+                rate += d.score;
+            }
+
+            data.rate = rate / (float)data.dataCount;
 
             string jstring = JsonUtility.ToJson(data, true);
             File.WriteAllText(outputFile, jstring);
@@ -102,7 +84,7 @@ namespace ICE.Evaluation
 
         IEnumerator IE_StableCheck(int currentIndex)
         {
-            m_isStable = false;
+            m_score = 0;
             WaitForEndOfFrame wff = new WaitForEndOfFrame();
 
             string sceneName = Utils.GetAssetPath(scene);
@@ -115,18 +97,23 @@ namespace ICE.Evaluation
             yield return wff;
             //load level
 
-            int sObjCount = GetTotalObjectAmt();
-            Dictionary<int, Vector2> sPos = GetObjectPositions();
-
+            float sObjCount = GetTotalObjectAmt();
             yield return wff;
             yield return new WaitForSeconds(duration);
             yield return wff;
-
-            int eObjCount = GetTotalObjectAmt();
-            Dictionary<int, Vector2> ePos = GetObjectPositions();
+            float eObjCount = GetTotalObjectAmt();
 
             //m_isStable = sObjCount == eObjCount && !AnyMovingObject(sPos, ePos);
-            m_isStable = sObjCount == eObjCount; //moving object is not considered unstable
+
+            try
+            {
+                m_score = eObjCount / sObjCount;
+            }
+            catch 
+            {
+                m_score = 0;
+            }
+
             yield return SceneManager.UnloadSceneAsync(sceneName);
             yield return wff;
         }

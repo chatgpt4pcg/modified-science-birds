@@ -9,12 +9,12 @@ namespace ICE.Evaluation
     public class Stability
     {
         public string tag;
-        public bool isStable;
+        public float score;
 
         public Stability()
         {
             tag = "";
-            isStable = false;
+            score = 0;
         }
 
         public Stability Clone()
@@ -22,7 +22,7 @@ namespace ICE.Evaluation
             return new Stability()
             {
                 tag = this.tag,
-                isStable = this.isStable
+                score = this.score
             };
         }
     }

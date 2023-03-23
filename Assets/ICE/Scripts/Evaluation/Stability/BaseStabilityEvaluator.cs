@@ -11,6 +11,13 @@ namespace ICE.Evaluation
 {
     public class BaseStabilityEvaluator : MonoBehaviour
     {
+        private class MovingData
+        {
+            public GameObject gameObj;
+            public Vector2 startPos;
+            public Vector2 lastPos;
+        }
+
         public bool autoStart = true;
         public Object scene;
         public float duration;
@@ -19,6 +26,8 @@ namespace ICE.Evaluation
         public int trials;
 
         private float m_score = 0;
+        private int m_startingObjs = 0;
+        private int m_movingObjs = 0;
 
         protected virtual void Awake()
         {
@@ -56,12 +65,13 @@ namespace ICE.Evaluation
                     Debug.LogFormat("--({0})checking: {1}", n, inputFiles[i]);
                     yield return StartCoroutine(IE_StableCheck(i));
                     score = Mathf.Max(score, m_score);
+
                     if (score >= 1.0f) //already a max score
                     {
                         break;
                     }
                 }
-                data.raws.Add(new Stability() { tag = inputFiles[i], score = score });
+                data.raws.Add(new Stability() { tag = inputFiles[i], score = score, startingObjects = m_startingObjs, movingObjects = m_movingObjs });
             }
 
             data.dataCount = data.raws.Count;
@@ -85,6 +95,8 @@ namespace ICE.Evaluation
         IEnumerator IE_StableCheck(int currentIndex)
         {
             m_score = 0;
+            m_startingObjs = 0;
+            m_movingObjs = 0;
             WaitForEndOfFrame wff = new WaitForEndOfFrame();
 
             string sceneName = Utils.GetAssetPath(scene);
@@ -96,20 +108,26 @@ namespace ICE.Evaluation
             yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             yield return wff;
             //load level
-
-            float sObjCount = GetTotalObjectAmt();
+            
+            Dictionary<int, MovingData> movingData = InitializeMovingData();
             yield return wff;
-            yield return new WaitForSeconds(duration);
+            float t = 0;
+            while (t <= duration)
+            {
+                UpdateMovingData(movingData);
+                yield return wff;
+                t += Time.deltaTime;
+            }
             yield return wff;
-            float eObjCount = GetTotalObjectAmt();
+            UpdateMovingData(movingData);
 
-            //m_isStable = sObjCount == eObjCount && !AnyMovingObject(sPos, ePos);
-
+            m_startingObjs = movingData.Count;
+            m_movingObjs = GetMovingObjectCount(movingData);
             try
             {
-                m_score = eObjCount / sObjCount;
+                m_score = 1.0f - ((float)m_movingObjs / (float)m_startingObjs);
             }
-            catch 
+            catch
             {
                 m_score = 0;
             }
@@ -121,8 +139,8 @@ namespace ICE.Evaluation
         private Dictionary<int, Vector2> GetObjectPositions()
         {
             ABBlock[] blocks = FindObjectsOfType<ABBlock>();
-            ABPig[] pigs = FindObjectsOfType<ABPig>();
-            ABTNT[] tnts = FindObjectsOfType<ABTNT>();
+            //ABPig[] pigs = FindObjectsOfType<ABPig>();
+            //ABTNT[] tnts = FindObjectsOfType<ABTNT>();
 
             Dictionary<int, Vector2> val = new Dictionary<int, Vector2>();
             foreach (ABBlock b in blocks)
@@ -136,28 +154,28 @@ namespace ICE.Evaluation
                     Debug.LogError(error.ToString());
                 }
             }
-            foreach (ABPig p in pigs)
-            {
-                try
-                {
-                    val.Add(p.gameObject.GetInstanceID(), p.transform.position);
-                }
-                catch (System.Exception error)
-                {
-                    Debug.LogError(error.ToString());
-                }
-            }
-            foreach (ABTNT t in tnts)
-            {
-                try
-                {
-                    val.Add(t.gameObject.GetInstanceID(), t.transform.position);
-                }
-                catch (System.Exception error)
-                {
-                    Debug.LogError(error.ToString());
-                }
-            }
+            //foreach (ABPig p in pigs)
+            //{
+            //    try
+            //    {
+            //        val.Add(p.gameObject.GetInstanceID(), p.transform.position);
+            //    }
+            //    catch (System.Exception error)
+            //    {
+            //        Debug.LogError(error.ToString());
+            //    }
+            //}
+            //foreach (ABTNT t in tnts)
+            //{
+            //    try
+            //    {
+            //        val.Add(t.gameObject.GetInstanceID(), t.transform.position);
+            //    }
+            //    catch (System.Exception error)
+            //    {
+            //        Debug.LogError(error.ToString());
+            //    }
+            //}
             return val;
         }
 
@@ -181,6 +199,82 @@ namespace ICE.Evaluation
                 }
             }
             return false;
+        }
+
+        private Dictionary<int, MovingData> InitializeMovingData()
+        {
+            ABBlock[] blocks = FindObjectsOfType<ABBlock>();
+            ABPig[] pigs = FindObjectsOfType<ABPig>();
+            ABTNT[] tnts = FindObjectsOfType<ABTNT>();
+
+            Dictionary<int, MovingData> val = new Dictionary<int, MovingData>();
+            foreach (ABBlock b in blocks)
+            {
+                try
+                {
+                    val.Add(b.gameObject.GetInstanceID(), new MovingData() { gameObj = b.gameObject, startPos = b.transform.position, lastPos = b.transform.position });
+                }
+                catch (System.Exception error)
+                {
+                    Debug.LogError(error.ToString());
+                }
+            }
+            foreach (ABPig p in pigs)
+            {
+                try
+                {
+                    val.Add(p.gameObject.GetInstanceID(), new MovingData() { gameObj = p.gameObject, startPos = p.transform.position, lastPos = p.transform.position });
+                }
+                catch (System.Exception error)
+                {
+                    Debug.LogError(error.ToString());
+                }
+            }
+            foreach (ABTNT t in tnts)
+            {
+                try
+                {
+                    val.Add(t.gameObject.GetInstanceID(), new MovingData() { gameObj = t.gameObject, startPos = t.transform.position, lastPos = t.transform.position });
+                }
+                catch (System.Exception error)
+                {
+                    Debug.LogError(error.ToString());
+                }
+            }
+            return val;
+        }
+
+        private void UpdateMovingData(Dictionary<int, MovingData> data)
+        {
+            foreach (int k in data.Keys)
+            {
+                if (data[k].gameObj == null)
+                {
+                    continue;
+                }
+                data[k].lastPos = data[k].gameObj.transform.position;
+            }
+        }
+
+        private int GetMovingObjectCount(Dictionary<int, MovingData> data)
+        {
+            try
+            {
+                int val = 0;
+                foreach (int k in data.Keys)
+                {
+                    if (Vector2.Distance(data[k].startPos, data[k].lastPos) >= movementThreshold)
+                    {
+                        val++;
+                    }
+                }
+                return val;
+            }
+            catch (System.Exception error)
+            {
+                Debug.LogError(error.ToString());
+            }
+            return 0;
         }
 
         private int GetTotalObjectAmt()

@@ -1,46 +1,66 @@
 {
     "dataCount": 10,
-    "rate": 0.9600000381469727,
+    "rate": 0.8333333134651184,
     "raws": [
         {
             "tag": "competition\\v2\\levels\\L\\V2_L_1.xml",
-            "score": 1.0
+            "score": 1.0,
+            "startingObjects": 3,
+            "movingObjects": 0
         },
         {
             "tag": "competition\\v2\\levels\\L\\V2_L_10.xml",
-            "score": 1.0
+            "score": 0.800000011920929,
+            "startingObjects": 5,
+            "movingObjects": 1
         },
         {
             "tag": "competition\\v2\\levels\\L\\V2_L_2.xml",
-            "score": 1.0
+            "score": 0.3333333432674408,
+            "startingObjects": 3,
+            "movingObjects": 2
         },
         {
             "tag": "competition\\v2\\levels\\L\\V2_L_3.xml",
-            "score": 1.0
+            "score": 1.0,
+            "startingObjects": 1,
+            "movingObjects": 0
         },
         {
             "tag": "competition\\v2\\levels\\L\\V2_L_4.xml",
-            "score": 1.0
+            "score": 1.0,
+            "startingObjects": 4,
+            "movingObjects": 0
         },
         {
             "tag": "competition\\v2\\levels\\L\\V2_L_5.xml",
-            "score": 1.0
+            "score": 1.0,
+            "startingObjects": 1,
+            "movingObjects": 0
         },
         {
             "tag": "competition\\v2\\levels\\L\\V2_L_6.xml",
-            "score": 0.6000000238418579
+            "score": 0.20000000298023225,
+            "startingObjects": 5,
+            "movingObjects": 4
         },
         {
             "tag": "competition\\v2\\levels\\L\\V2_L_7.xml",
-            "score": 1.0
+            "score": 1.0,
+            "startingObjects": 4,
+            "movingObjects": 0
         },
         {
             "tag": "competition\\v2\\levels\\L\\V2_L_8.xml",
-            "score": 1.0
+            "score": 1.0,
+            "startingObjects": 2,
+            "movingObjects": 0
         },
         {
             "tag": "competition\\v2\\levels\\L\\V2_L_9.xml",
-            "score": 1.0
+            "score": 1.0,
+            "startingObjects": 1,
+            "movingObjects": 0
         }
     ]
 }

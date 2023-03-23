@@ -1,46 +1,66 @@
 {
     "dataCount": 10,
-    "rate": 0.9624999761581421,
+    "rate": 0.9175000190734863,
     "raws": [
         {
             "tag": "competition\\v3\\levels\\U\\V3_U_1.xml",
-            "score": 1.0
+            "score": 1.0,
+            "startingObjects": 6,
+            "movingObjects": 0
         },
         {
             "tag": "competition\\v3\\levels\\U\\V3_U_10.xml",
-            "score": 1.0
+            "score": 1.0,
+            "startingObjects": 5,
+            "movingObjects": 0
         },
         {
             "tag": "competition\\v3\\levels\\U\\V3_U_2.xml",
-            "score": 1.0
+            "score": 1.0,
+            "startingObjects": 1,
+            "movingObjects": 0
         },
         {
             "tag": "competition\\v3\\levels\\U\\V3_U_3.xml",
-            "score": 0.625
+            "score": 0.375,
+            "startingObjects": 8,
+            "movingObjects": 5
         },
         {
             "tag": "competition\\v3\\levels\\U\\V3_U_4.xml",
-            "score": 1.0
+            "score": 0.800000011920929,
+            "startingObjects": 5,
+            "movingObjects": 1
         },
         {
             "tag": "competition\\v3\\levels\\U\\V3_U_5.xml",
-            "score": 1.0
+            "score": 1.0,
+            "startingObjects": 3,
+            "movingObjects": 0
         },
         {
             "tag": "competition\\v3\\levels\\U\\V3_U_6.xml",
-            "score": 1.0
+            "score": 1.0,
+            "startingObjects": 9,
+            "movingObjects": 0
         },
         {
             "tag": "competition\\v3\\levels\\U\\V3_U_7.xml",
-            "score": 1.0
+            "score": 1.0,
+            "startingObjects": 6,
+            "movingObjects": 0
         },
         {
             "tag": "competition\\v3\\levels\\U\\V3_U_8.xml",
-            "score": 1.0
+            "score": 1.0,
+            "startingObjects": 3,
+            "movingObjects": 0
         },
         {
             "tag": "competition\\v3\\levels\\U\\V3_U_9.xml",
-            "score": 1.0
+            "score": 1.0,
+            "startingObjects": 6,
+            "movingObjects": 0
         }
     ]
 }

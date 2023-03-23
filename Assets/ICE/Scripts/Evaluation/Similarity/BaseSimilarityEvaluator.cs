@@ -93,17 +93,26 @@ namespace ICE.Evaluation
 
                 renderCamera.targetTexture = tTexture;
 
-                AdjustBlocks();
+                string outputName = outputFiles[i];
+                string outputNameWOExt = Path.GetFileNameWithoutExtension(outputName);
+                string rawNameWOExt = string.Format("{0}_raw.png", outputNameWOExt);
+                string rawOutputName = outputName.Replace(outputNameWOExt, rawNameWOExt);
+
                 AdjustCamera(sBound);
-
-                yield return new WaitForEndOfFrame();
-
                 for (int j = 0; j < 7; j++)
                 {
                     yield return wff;
                 }
-                SaveTexture(tTexture, outputFiles[i]);
-                Debug.LogFormat("--image saved to: {0}", outputFiles[i]);
+                SaveTexture(tTexture, rawOutputName);
+                Debug.LogFormat("--raw image saved to: {0}", rawOutputName);
+
+                AdjustBlocks();
+                for (int j = 0; j < 7; j++)
+                {
+                    yield return wff;
+                }
+                SaveTexture(tTexture, outputName);
+                Debug.LogFormat("--image saved to: {0}", outputName);
                 //take a screenshot
 
                 //unload level

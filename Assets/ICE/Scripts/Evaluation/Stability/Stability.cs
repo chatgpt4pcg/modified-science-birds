@@ -10,11 +10,15 @@ namespace ICE.Evaluation
     {
         public string tag;
         public float score;
+        public int startingObjects;
+        public int movingObjects;
 
         public Stability()
         {
             tag = "";
             score = 0;
+            startingObjects = 0;
+            movingObjects = 0;
         }
 
         public Stability Clone()
@@ -22,7 +26,9 @@ namespace ICE.Evaluation
             return new Stability()
             {
                 tag = this.tag,
-                score = this.score
+                score = this.score,
+                startingObjects = this.startingObjects,
+                movingObjects = this.movingObjects
             };
         }
     }

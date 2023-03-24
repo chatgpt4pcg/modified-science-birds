@@ -1,6 +1,6 @@
-# Science Birds - Modified Version
+# Science Birds Evaluator
 
-This is a modified version of the [Science Birds](https://github.com/lucasnfe/science-birds) game. In this version, the foundational blocks have been adjusted to match with the grid specification of the competition, and a plugin has been added to convert the string of the `ab_drop()` function into an actual Science Birds level. The plugin can be accessed via the menu bar by selecting "ICE" and then choosing "Grid Level Converter MkIII."
+This is a modified version of the [Science Birds](https://github.com/lucasnfe/science-birds) game called Science Birds Evaluator. In this version, the foundational blocks have been adjusted to match with the grid specification of the competition, and a plugin has been added to assess the stability and produce an image for similarity test. The plugin can be accessed via the menu bar by selecting ICE > Batched > Stability Test.
 
 ## Getting Started
 
@@ -14,15 +14,33 @@ Once you've cloned the repository, you can open the project in Unity by selectin
 
 ## Usage
 
-To use the Grid Level Converter MkIII plugin, simply select "ICE" in the menu bar and then choose "Grid Level Converter MkII." 
+To use the Stability Test plugin, simply select "ICE" in the menu bar, choose "Batched", and select "Stability Test". 
 
-<img width="208" alt="image" src="https://user-images.githubusercontent.com/11158905/225572932-7c6f6875-12a4-4b7e-a88b-1af6d7cac73e.png">
 
-This will open a new window where you can enter a string of the `ab_drop()` function. 
+This will start the stability testing process immediately. The plugin assumes that the folder structure must follows the following format:
 
-![image](https://user-images.githubusercontent.com/11158905/225573170-a3dfa9d6-513f-4cee-8142-9602a5cd0145.png)
-
-Once you've entered the string, click the "Create" button, and the plugin will generate a Science Birds level based on the input string.
-
-## Contributing
-If you'd like to contribute to this modified version of Science Birds, you can do so by forking the repository, making your changes, and submitting a pull request. Please be sure to include a detailed description of your changes in your pull request.
+```
+<SOURCE_FOLDER>
+├── <TEAM_NAME>
+|   ├── <STAGE>
+│   │    └── <CHARACTER>
+│   │       ├── <TRIAL_NUMBER>.jpg
+│   │       ├── <TRIAL_NUMBER>.jpg
+│   │       └── <TRIAL_NUMBER>.png
+│   └── <STAGE>
+│        └── <CHARACTER>
+│           ├── <TRIAL_NUMBER>.txt
+│           ├── <TRIAL_NUMBER>.txt
+│           └── <TRIAL_NUMBER>.txt
+└── <TEAM_NAME>
+    ├── <STAGE>
+    │    └── <CHARACTER>
+    │       ├── <TRIAL_NUMBER>.jpg
+    │       ├── <TRIAL_NUMBER>.png
+    │       └── <TRIAL_NUMBER>.jpg
+    └── <STAGE>
+         └── <CHARACTER>
+            ├── <TRIAL_NUMBER>.txt
+            ├── <TRIAL_NUMBER>.txt
+            └── <TRIAL_NUMBER>.txt
+```

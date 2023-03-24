@@ -14,7 +14,9 @@ Once you've cloned the repository, you can open the project in Unity by selectin
 
 ## Usage
 
-To use the Stability Test plugin, simply select "ICE" in the menu bar, choose "Batched", and select "Stability Test". 
+To use the Stability Test plugin, simply select "ICE" in the menu bar, choose "Batched", and select "Stability Test".
+
+<img width="450" alt="image" src="https://user-images.githubusercontent.com/11158905/227528419-a52886c3-9ed5-4aef-81c7-4cc308135573.png">
 
 
 This will start the stability testing process immediately. The plugin assumes that the folder structure must follows the following format:

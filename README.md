@@ -27,7 +27,7 @@ This will start the stability testing process immediately.
 
 To use the Similarity Image Producing plugin, simply select "ICE" in the menu bar, choose "Batched", and select "Similarity Test".
 
-
+<img width="465" alt="image" src="https://user-images.githubusercontent.com/11158905/227667691-7a157e02-5851-41e0-9563-92b754657579.png">
 
 This will start the similarity image producing process immediately.
 

@@ -95,7 +95,7 @@ namespace ICE.Evaluation
 
                 string outputName = outputFiles[i];
                 string outputNameWOExt = Path.GetFileNameWithoutExtension(outputName);
-                string rawNameWOExt = string.Format("{0}_raw.png", outputNameWOExt);
+                string rawNameWOExt = string.Format("{0}_raw", outputNameWOExt);
                 string rawOutputName = outputName.Replace(outputNameWOExt, rawNameWOExt);
 
                 AdjustCamera(sBound);

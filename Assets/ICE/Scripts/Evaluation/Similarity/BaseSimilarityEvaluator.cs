@@ -27,6 +27,8 @@ namespace ICE.Evaluation
         public bool outputErrorLevels;
 
         private List<Vector2> m_debugPos;
+        private static RenderTexture m_renderTexture = null;
+        private static Texture2D m_texture2D = null;
 
         protected virtual void Awake()
         {
@@ -86,12 +88,16 @@ namespace ICE.Evaluation
                     }
                 }
 
-                RenderTexture tTexture = CreateRenderTexture();
+                if (m_renderTexture == null)
+                {
+                    m_renderTexture = CreateRenderTexture();
+                }
+
                 m_debugPos.Clear();
                 m_debugPos.Add(sBound.min);
                 m_debugPos.Add(sBound.max);
 
-                renderCamera.targetTexture = tTexture;
+                renderCamera.targetTexture = m_renderTexture;
 
                 string outputName = outputFiles[i];
                 string outputNameWOExt = Path.GetFileNameWithoutExtension(outputName);
@@ -103,7 +109,7 @@ namespace ICE.Evaluation
                 {
                     yield return wff;
                 }
-                SaveTexture(tTexture, rawOutputName);
+                SaveTexture(m_renderTexture, rawOutputName);
                 Debug.LogFormat("--raw image saved to: {0}", rawOutputName);
 
                 AdjustBlocks();
@@ -111,13 +117,13 @@ namespace ICE.Evaluation
                 {
                     yield return wff;
                 }
-                SaveTexture(tTexture, outputName);
+                SaveTexture(m_renderTexture, outputName);
                 Debug.LogFormat("--image saved to: {0}", outputName);
                 //take a screenshot
 
                 //unload level
                 renderCamera.targetTexture = null;
-                tTexture.Release();
+                //tTexture.Release();
                 yield return SceneManager.UnloadSceneAsync(sceneName);
                 yield return wff;
                 //unload level
@@ -210,7 +216,16 @@ namespace ICE.Evaluation
 
         public void SaveTexture(RenderTexture renderTexture, string filePath)
         {
-            byte[] bytes = CreateTexture2D(renderTexture).EncodeToPNG();
+            //byte[] bytes = CreateTexture2D(renderTexture).EncodeToPNG();
+            //File.WriteAllBytes(filePath, bytes);
+
+            if (m_texture2D == null)
+            {
+                m_texture2D = CreateTexture2DII(renderTexture);
+            }
+
+            m_texture2D = CopyPixels(renderTexture, m_texture2D);
+            byte[] bytes = m_texture2D.EncodeToPNG();
             File.WriteAllBytes(filePath, bytes);
         }
 
@@ -230,6 +245,28 @@ namespace ICE.Evaluation
             tex.ReadPixels(new Rect(0, 0, rTex.width, rTex.height), margin, margin);
             tex.Apply();
             return tex;
+        }
+
+        private Texture2D CreateTexture2DII(RenderTexture rTex)
+        {
+            Texture2D tex = new Texture2D(rTex.width + (margin * 2), rTex.height + (margin * 2), TextureFormat.RGBA32, false);
+            //set to camera background color
+            for (int y = 0; y < tex.height; y++)
+            {
+                for (int x = 0; x < tex.width; x++)
+                {
+                    tex.SetPixel(x, y, renderCamera.backgroundColor);
+                }
+            }
+            return tex;
+        }
+
+        private Texture2D CopyPixels(RenderTexture sourceTexture, Texture2D targetTexture)
+        {
+            RenderTexture.active = sourceTexture;
+            targetTexture.ReadPixels(new Rect(0, 0, sourceTexture.width, sourceTexture.height), margin, margin);
+            targetTexture.Apply();
+            return targetTexture;
         }
     }
 }
